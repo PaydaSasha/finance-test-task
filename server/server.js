@@ -28,16 +28,22 @@ function utcDate() {
 
 function getQuotes(socket) {
 
-  const quotes = tickers.map(ticker => ({
-    ticker,
-    exchange: 'NASDAQ',
-    price: randomValue(100, 300, 2),
-    change: randomValue(0, 200, 2),
-    change_percent: randomValue(0, 1, 2),
-    dividend: randomValue(0, 1, 2),
-    yield: randomValue(0, 2, 2),
-    last_trade_time: utcDate(),
-  }));
+  const quotes = tickers.map(ticker => {
+    if (filterTickersArr.includes(ticker)) {
+      return { ticker };
+    } else {
+      return ({
+        ticker,
+        exchange: 'NASDAQ',
+        price: randomValue(100, 300, 2),
+        change: randomValue(0, 200, 2),
+        change_percent: randomValue(0, 1, 2),
+        dividend: randomValue(0, 1, 2),
+        yield: randomValue(0, 2, 2),
+        last_trade_time: utcDate(),
+      })
+    }
+  });
 
   socket.emit('ticker', quotes);
 }
@@ -47,12 +53,13 @@ function trackTickers(socket) {
   getQuotes(socket);
 
   // every N seconds
-  const timer = setInterval(function() {
+  const timer = setInterval(function () {
     getQuotes(socket);
   }, FETCH_INTERVAL);
 
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function () {
     clearInterval(timer);
+    filterTickersArr = [];
   });
 }
 
@@ -66,16 +73,29 @@ const socketServer = io(server, {
   }
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+let filterTickersArr = [];
+
 socketServer.on('connection', (socket) => {
-  console.log("Connected to Socket!!" + socket.id)	
+  console.log("Connected to Socket!!" + socket.id)
   socket.on('start', () => {
     trackTickers(socket);
   });
+  socket.on('dsblTicker', ticker => {
+    filterTickersArr.push(ticker);
+  });
+  socket.on('enblTicker', ticker => {
+    filterTickersArr = filterTickersArr.filter(el => el !== ticker);
+  });
 });
+
+
+
+
+
 
 server.listen(PORT, () => {
   console.log(`Streaming service is running on http://localhost:${PORT}`);

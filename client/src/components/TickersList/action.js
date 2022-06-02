@@ -9,7 +9,7 @@ export const getTickersData = (tickers) => ({
 
 export const getTickersDataThunkCreator = (socket) => (dispatch) => {
     socket.on('ticker', tickersData => {
-        console.log(tickersData);
+        // console.log(tickersData);
         dispatch(getTickersData(tickersData));
     });
 };

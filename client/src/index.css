@@ -2,7 +2,7 @@
     display: flex;
     align-items: flex-end;
     flex-grow: 1;
-    gap: 5px;
+    gap: 30px;
 }
 
 .change-percent-container {
@@ -26,7 +26,6 @@
 .badge-ticker-container{
     display: flex;
     gap: 10px;
-    width: 120px;
 }
 .column-direction{
     flex-direction: column;
@@ -35,7 +34,9 @@
     align-items: center;
 }
 
-.text-transition_inner .div{
-    left: 50%;
-    transform: translateX(-50%);
+.badge-ticker-wrapper{
+    width: 130px;
+}
+.right-text-wrapper{
+    width: 60%;
 }

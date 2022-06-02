@@ -4,13 +4,12 @@ export const listItemStyle = (width) => {
     return {
         borderTop: '1px solid #e8eaed',
         minHeight: '55px',
-        width: 'min(600px, 90%, 70vw)',
+        width: 'min(700px, 90%, 80vw)',
         minWidth: '210px',
         margin: '0 auto',
         display: 'flex',
-        flexGrow: 1,
         alignItems: width < MIN_WIDTH ? 'center' : 'baseline',
-        gap: '30px',
+        gap: '20%',
         justifyContent: 'space-between',
         '&:hover': {
             backgroundColor: '#f8f9fa',
