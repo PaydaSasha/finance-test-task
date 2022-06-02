@@ -4,7 +4,7 @@ const http = require('http');
 const io = require('socket.io');
 const cors = require('cors');
 
-const FETCH_INTERVAL = 5000;
+const FETCH_INTERVAL = 3000;
 const PORT = process.env.PORT || 4000;
 
 const tickers = [
@@ -71,6 +71,7 @@ app.get('/', function(req, res) {
 });
 
 socketServer.on('connection', (socket) => {
+  console.log("Connected to Socket!!" + socket.id)	
   socket.on('start', () => {
     trackTickers(socket);
   });

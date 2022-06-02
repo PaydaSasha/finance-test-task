@@ -36,6 +36,7 @@ export const changePercentStyles = (changePercent) => {
         '& .MuiTypography-root': {
             ...textStyles['& .MuiTypography-root'],
             color: changePercent > 0 ? INCREASE_COLOR : DECLINE_COLOR,
+            transform: 'translateX(-30%)',
         }
     }
 };
@@ -51,8 +52,9 @@ export const changeStyles = (changePercent) => {
 export const tickerBadgeStyle = (ticker) => {
     return {
         ...setBadgeBackground(ticker),
-        width: '45px',
-        borderRadius: '15px',
+        width: 'auto',
+        display: 'block',
+        borderRadius: '20px',
         '& .MuiTypography-root': {
             ...textStyles['& .MuiTypography-root'],
             color: 'white',
