@@ -4,7 +4,7 @@ const http = require('http');
 const io = require('socket.io');
 const cors = require('cors');
 
-const FETCH_INTERVAL = 3000;
+const FETCH_INTERVAL = 5000;
 const PORT = process.env.PORT || 4000;
 
 const tickers = [
@@ -27,26 +27,22 @@ function utcDate() {
 }
 
 function getQuotes(socket) {
-
-  const quotes = tickers.map(ticker => {
-    if (filterTickersArr.includes(ticker)) {
-      return { ticker };
-    } else {
-      return ({
-        ticker,
-        exchange: 'NASDAQ',
-        price: randomValue(100, 300, 2),
-        change: randomValue(0, 200, 2),
-        change_percent: randomValue(0, 1, 2),
-        dividend: randomValue(0, 1, 2),
-        yield: randomValue(0, 2, 2),
-        last_trade_time: utcDate(),
-      })
-    }
-  });
-
+  
+  const quotes = tickers.map(ticker => ({
+    ticker: ticker,
+    exchange: 'NASDAQ',
+    price: randomValue(100, 300, 2),
+    change: randomValue(0, 200, 2),
+    change_percent: randomValue(0, 1, 2),
+    dividend: randomValue(0, 1, 2),
+    yield: randomValue(0, 2, 2),
+    last_trade_time: utcDate(),
+  }));
   socket.emit('ticker', quotes);
 }
+
+
+
 
 function trackTickers(socket) {
   // run the first time immediately
@@ -59,7 +55,6 @@ function trackTickers(socket) {
 
   socket.on('disconnect', function () {
     clearInterval(timer);
-    filterTickersArr = [];
   });
 }
 
@@ -77,18 +72,11 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-let filterTickersArr = [];
 
 socketServer.on('connection', (socket) => {
   console.log("Connected to Socket!!" + socket.id)
   socket.on('start', () => {
     trackTickers(socket);
-  });
-  socket.on('dsblTicker', ticker => {
-    filterTickersArr.push(ticker);
-  });
-  socket.on('enblTicker', ticker => {
-    filterTickersArr = filterTickersArr.filter(el => el !== ticker);
   });
 });
 

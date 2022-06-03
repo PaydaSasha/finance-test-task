@@ -23,20 +23,26 @@
     background-color: #fce8e6;
 }
 
-.badge-ticker-container{
+.badge-ticker-container {
     display: flex;
     gap: 10px;
 }
-.column-direction{
+
+.column-direction {
     flex-direction: column;
     height: fit-content;
     gap: 0;
     align-items: center;
 }
 
-.badge-ticker-wrapper{
+.badge-ticker-wrapper {
     width: 130px;
 }
-.right-text-wrapper{
+
+.right-text-wrapper {
     width: 60%;
+}
+.button-container{
+    display: flex;
+    flex-wrap: nowrap;
 }
