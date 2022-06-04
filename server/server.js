@@ -4,7 +4,7 @@ const http = require('http');
 const io = require('socket.io');
 const cors = require('cors');
 
-let fetchInterval = 5000; // not a constant anymore, rewrite in camelCase
+let fetchInterval = 5000; // not a constant anymore, rewrited in camelCase
 const PORT = process.env.PORT || 4000;
 
 const tickers = [
@@ -32,15 +32,14 @@ function getQuotes(socket) {
     ticker: ticker,
     exchange: 'NASDAQ',
     price: randomValue(100, 300, 2),
-    change: randomValue(0, 200, 2),
-    change_percent: randomValue(0, 1, 2),
+    change: randomValue(-100, 200, 2), //changed 'min' to negative, to make statistics decline as well
+    change_percent: randomValue(-0.5, 1, 2),
     dividend: randomValue(0, 1, 2),
     yield: randomValue(0, 2, 2),
     last_trade_time: utcDate(),
   }));
   socket.emit('ticker', quotes, fetchInterval);
 }
-
 
 function trackTickers(socket) {
   // run the first time immediately
@@ -55,9 +54,9 @@ function trackTickers(socket) {
     clearInterval(timer);
   });
 
-  socket.on('change_interval', (interval) => {
+  socket.on('change_interval', (interval) => { //change interval by socket emit from client
     fetchInterval = interval * 1000;
-    clearInterval(timer);
+    clearInterval(timer); // remove current setInterval and restart trackTickers
     trackTickers(socket);
   })
 }
