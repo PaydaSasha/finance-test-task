@@ -17,7 +17,7 @@ As a bonus you can implement (please describe implemented bonus functionality in
 
 implemented features :
 
-1. any additional visual effects to highlight positive or negative changes in the prices 
+1. additional visual effects to highlight positive or negative changes in the prices 
 2. the possibility to switch on/off tickers by user
 3. the possibility to specify interval time by user
 4. the possibility to add/remove ticker from watching group
