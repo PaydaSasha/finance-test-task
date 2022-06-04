@@ -10,6 +10,7 @@ export const listItemStyle = (width) => {
         width: 'min(700px, 90%, 80vw)',
         minWidth: '210px',
         margin: '0 auto',
+        padding: 0,
         display: 'flex',
         alignItems: width < MIN_WIDTH ? 'center' : 'baseline',
         gap: '20%',
