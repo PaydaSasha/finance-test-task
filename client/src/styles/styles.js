@@ -104,3 +104,16 @@ export const addCircleIconStyle = {
         transition: 'border 0.1s',
     }
 }
+
+export const setIntervalButtonStyle = {
+    padding: '5px',
+    minWidth: '40px',
+    height: '40px',
+    color: '#202124',
+}
+
+export const setIntervalInputStyle ={
+    '&:hover': {
+        color: '#e8eaed',
+    }
+}

@@ -4,7 +4,7 @@ const http = require('http');
 const io = require('socket.io');
 const cors = require('cors');
 
-const FETCH_INTERVAL = 5000;
+let fetchInterval = 5000; // not a constant anymore, rewrite in camelCase
 const PORT = process.env.PORT || 4000;
 
 const tickers = [
@@ -38,10 +38,8 @@ function getQuotes(socket) {
     yield: randomValue(0, 2, 2),
     last_trade_time: utcDate(),
   }));
-  socket.emit('ticker', quotes);
+  socket.emit('ticker', quotes, fetchInterval);
 }
-
-
 
 
 function trackTickers(socket) {
@@ -51,11 +49,17 @@ function trackTickers(socket) {
   // every N seconds
   const timer = setInterval(function () {
     getQuotes(socket);
-  }, FETCH_INTERVAL);
+  }, fetchInterval);
 
   socket.on('disconnect', function () {
     clearInterval(timer);
   });
+
+  socket.on('change_interval', (interval) => {
+    fetchInterval = interval * 1000;
+    clearInterval(timer);
+    trackTickers(socket);
+  })
 }
 
 const app = express();

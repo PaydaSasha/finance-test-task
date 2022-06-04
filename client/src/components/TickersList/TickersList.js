@@ -3,20 +3,27 @@ import List from '@mui/material/List';
 import TickerListItem from '../TickerListItem/TickerListItem';
 import { ENDPOINT } from '../../constants/constants';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTickersDataThunkCreator } from './action';
+import { getTickersDataThunkCreator, clearFilterList } from './action';
 import socketIOClient from 'socket.io-client';
 import { tickersListStyle } from '../../styles/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import { addCircleIconStyle } from '../../styles/styles';
-
+import { SetIntervalForm } from '../SetIntervalForm/SetIntervalForm';
 
 const socket = socketIOClient(ENDPOINT);
 
 const TickersList = () => {
 
-    const dispatch = useDispatch();
     const { tickers, filteredTickersArray, stopUpdateTickersArray } = useSelector(state => state.tickerList)
+    const emptyTickersArray = filteredTickersArray.length !== tickers.length;
+ 
+    const dispatch = useDispatch();
+
+    const addButtonHandler = () => {
+        dispatch(clearFilterList());
+    }
+
 
     useEffect(() => {
         socket.emit('start');
@@ -24,12 +31,20 @@ const TickersList = () => {
     }, [dispatch]);
 
     return <>
-        {filteredTickersArray.length !== tickers.length ? null :
+        
+        {emptyTickersArray ? 
+            <SetIntervalForm socket={socket}/> :
             <div className='center-content'>
-                <Button startIcon={<AddCircleIcon />} sx={addCircleIconStyle} disableRipple={true} variant='outlined'>
+                <Button startIcon={<AddCircleIcon />}
+                    onClick={addButtonHandler}
+                    sx={addCircleIconStyle}
+                    disableRipple={true}
+                    variant='outlined'>
                     show tickers
                 </Button>
-            </div>}
+            </div>
+            }
+        
         <List
             sx={tickersListStyle}>
             {tickers.map((tickerData) => {
