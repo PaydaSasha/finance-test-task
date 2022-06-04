@@ -15,19 +15,19 @@ You can get some ideas how your application may look like on the [Google Finance
 
 As a bonus you can implement (please describe implemented bonus functionality in this file):
 
-implemented features marked by plus '+' symbol:
+implemented features :
 
-+ any additional visual effects to highlight positive or negative changes in the prices 
-+ the possibility to switch on/off tickers by user
-+ the possibility to specify interval time by user
-+ the possibility to add/remove ticker from watching group
+1. any additional visual effects to highlight positive or negative changes in the prices 
+2. the possibility to switch on/off tickers by user
+3. the possibility to specify interval time by user
+4. the possibility to add/remove ticker from watching group
 
-  - any additional functionality you consider useful:
-    + added decline statistics on server.js
-    + when tickerList is empty (removed all tickers), there appear a plusButton to show all tickers again
-    + input for changing interval of updates also shows current interval in its(input) placeholder
-    + implemented responsive design for UI template
-    
+  - additional functionality:
+    1) added decline statistics on server.js
+    2) when tickerList is empty (removed all tickers), there appear a plusButton to show all tickers again
+    3) input for changing interval of updates also shows current interval in its(input) placeholder
+    4) implemented responsive design for UI template
+
 You should use the next technologies:
 - React (preferable with hooks)
 - Redux (with Redux-Thunk or any other Redux middleware you are familiar) or any other state-manager library you want
