@@ -46,3 +46,9 @@
     display: flex;
     flex-wrap: nowrap;
 }
+.center-content{
+    margin-top: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

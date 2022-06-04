@@ -95,16 +95,12 @@ export const setBadgeBackground = (ticker) => {
 };
 
 export const addCircleIconStyle = {
-    display: 'block',
-    margin: '0 auto',
-    width: '50px',
-    height: '50px',
-    position: 'relative',
-    '& .MuiSvgIcon-root': {
-        // margin: 'auto auto',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+    ...textStyles['& .MuiTypography-root'],
+    padding: '10px',
+    border: '1px solid #e8eaed',
+    '&:hover':{
+        border: '2px solid #e8eaed',
+        backgroundColor: 'transparent',
+        transition: 'border 0.1s',
     }
 }

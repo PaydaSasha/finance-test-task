@@ -7,7 +7,7 @@ import { getTickersDataThunkCreator } from './action';
 import socketIOClient from 'socket.io-client';
 import { tickersListStyle } from '../../styles/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import { addCircleIconStyle } from '../../styles/styles';
 
 
@@ -25,10 +25,11 @@ const TickersList = () => {
 
     return <>
         {filteredTickersArray.length !== tickers.length ? null :
-            <IconButton sx = { addCircleIconStyle } label={'show tickers'} >
-                show tickers
-                <AddCircleIcon />
-            </IconButton>}
+            <div className='center-content'>
+                <Button startIcon={<AddCircleIcon />} sx={addCircleIconStyle} disableRipple={true} variant='outlined'>
+                    show tickers
+                </Button>
+            </div>}
         <List
             sx={tickersListStyle}>
             {tickers.map((tickerData) => {
