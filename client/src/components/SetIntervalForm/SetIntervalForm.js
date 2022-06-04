@@ -11,7 +11,7 @@ export const SetIntervalForm = ({ socket }) => {
     const intervalValue = useRef();
     const { fetchInterval } = useSelector(state => state.tickerList)
     const onChangeHandler = () => {
-        if (isNaN(intervalValue.current.value) || !(intervalValue.current.value < 20 && intervalValue.current.value > 1)) {
+        if (isNaN(intervalValue.current.value) || !(intervalValue.current.value <= 30 && intervalValue.current.value >= 1)) {
             intervalValue.current.value !== '' ? setErrorMessage('Set value from 1 to 30') : setErrorMessage('');
         } else {
             setErrorMessage('');
@@ -19,9 +19,12 @@ export const SetIntervalForm = ({ socket }) => {
     }
 
     const setIntervalButtonHandler = () => {
-        setUpdateInterval(socket, intervalValue.current.value);
-        console.log(intervalValue.current.value);
-        intervalValue.current.value = '';
+        if (intervalValue.current.value <= 30 && intervalValue.current.value >= 1){
+            setUpdateInterval(socket, intervalValue.current.value);
+            console.log(intervalValue.current.value);
+            intervalValue.current.value = '';
+        }
+        
     };
     return (<div className='center-content input-interval-form'>
         <Input inputRef={intervalValue}
