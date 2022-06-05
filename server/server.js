@@ -15,10 +15,13 @@ const tickers = [
   'FB', // Facebook
   'TSLA', // Tesla
 ];
+let ifNegative;
 
 function randomValue(min = 0, max = 1, precision = 0) {
   const random = Math.random() * (max - min) + min;
+  ifNegative = random < 0 ? -1 : 1;
   return random.toFixed(precision);
+
 }
 
 function utcDate() {
@@ -33,7 +36,7 @@ function getQuotes(socket) {
     exchange: 'NASDAQ',
     price: randomValue(100, 300, 2),
     change: randomValue(-100, 200, 2), //changed 'min' to negative, to make statistics decline as well
-    change_percent: randomValue(-0.5, 1, 2),
+    change_percent: ifNegative*randomValue(0, 1, 2), //combine same sign as 'change' property
     dividend: randomValue(0, 1, 2),
     yield: randomValue(0, 2, 2),
     last_trade_time: utcDate(),
