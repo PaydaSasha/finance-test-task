@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import tickerList from '../components/TickersList/reducer';
+import { combineReducers } from 'redux'
+import tickerList from '../components/TickersList/reducer'
 
 const rootReducer = combineReducers({
-    tickerList,
-});
+	tickerList,
+})
 
-export default rootReducer;
+export default rootReducer

@@ -1,12 +1,14 @@
-import TextTransition, { presets } from "react-text-transition";
+import TextTransition, { presets } from 'react-text-transition'
 
-export const textTransition =(text)=>{
-    return <TextTransition 
-    text={text} 
-    springConfig={presets.wobbly} 
-    style={{
-        marginLeft: '50%',
-        transform: 'translateX(-50%)',
-    }}
-    />
+export const textTransition = (text) => {
+	return (
+		<TextTransition
+			text={text}
+			springConfig={presets.wobbly}
+			style={{
+				marginLeft: '50%',
+				transform: 'translateX(-50%)',
+			}}
+		/>
+	)
 }
