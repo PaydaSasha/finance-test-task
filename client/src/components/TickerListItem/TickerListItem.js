@@ -40,7 +40,6 @@ export const TickerListItem = ({
 
 	const onSwitch = (event) => {
 		setChecked(event.target.checked)
-		console.log(!checked)
 		handleSwitch(!checked, ticker)
 	}
 

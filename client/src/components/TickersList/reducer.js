@@ -54,10 +54,13 @@ export default function (state = initialState, action) {
 		}
 		case CLEAR_FILTER_LIST: {
 			let filteredTickersArray = state.filteredTickersArray
+			let stopUpdateTickersArray = state.stopUpdateTickersArray
 			filteredTickersArray = []
+			stopUpdateTickersArray = []
 			return {
 				...state,
 				filteredTickersArray,
+				stopUpdateTickersArray,
 			}
 		}
 		case GET_FETCH_INTERVAL: {
