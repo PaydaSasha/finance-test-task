@@ -21,37 +21,27 @@ import { useState } from 'react'
 import { textTransition } from '../../service/textTransition'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import IconButton from '@mui/material/IconButton'
-import { useDispatch } from 'react-redux'
-import {
-	deleteTicker,
-	stopUpdateTicker,
-	startUpdateTicker,
-} from '../TickersList/action'
 
-const TickerListItem = ({ tickerData }) => {
+export const TickerListItem = ({
+	tickerData,
+	removeListItem,
+	handleSwitch,
+}) => {
 	const { width } = useWindowDimensions()
 	const ticker = tickerData.ticker || tickerData
 	const price = tickerData.price || '-'
 	const change = tickerData.change || '-'
 	const changePercent = tickerData.change_percent || '-'
-	const dispatch = useDispatch()
 
-	const [checked, setChecked] = useState(true)
-	const [deleted, setDeleted] = useState(true)
-
-	const removeListItem = () => {
-		dispatch(deleteTicker(ticker))
-		setDeleted(!deleted)
+	const onDelete = () => {
+		removeListItem(ticker)
 	}
+	const [checked, setChecked] = useState(true)
 
-	const handleSwitch = (event) => {
+	const onSwitch = (event) => {
 		setChecked(event.target.checked)
-
-		if (!event.target.checked) {
-			dispatch(stopUpdateTicker(ticker))
-		} else {
-			dispatch(startUpdateTicker(ticker))
-		}
+		console.log(!checked)
+		handleSwitch(!checked, ticker)
 	}
 
 	return (
@@ -107,11 +97,12 @@ const TickerListItem = ({ tickerData }) => {
 						{width < MIN_WIDTH ? null : (
 							<div className='button-container'>
 								<Switch
+									className='switch'
 									checked={checked}
 									color='default'
-									onChange={handleSwitch}
+									onChange={onSwitch}
 								/>
-								<IconButton onClick={removeListItem}>
+								<IconButton onClick={onDelete}>
 									<DeleteOutlineIcon />
 								</IconButton>
 							</div>
@@ -122,5 +113,3 @@ const TickerListItem = ({ tickerData }) => {
 		</div>
 	)
 }
-
-export default TickerListItem

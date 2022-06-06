@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react'
 import List from '@mui/material/List'
-import TickerListItem from '../TickerListItem/TickerListItem'
+import { TickerListItem } from '../TickerListItem/TickerListItem'
 import { ENDPOINT } from '../../constants/constants'
 import { useSelector, useDispatch } from 'react-redux'
-import { getTickersDataThunkCreator, clearFilterList } from './action'
+import {
+	getTickersDataThunkCreator,
+	clearFilterList,
+	deleteTicker,
+	stopUpdateTicker,
+	startUpdateTicker,
+} from './action'
 import socketIOClient from 'socket.io-client'
 import { tickersListStyle } from '../../styles/styles'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
@@ -23,6 +29,16 @@ const TickersList = () => {
 
 	const addButtonHandler = () => {
 		dispatch(clearFilterList())
+	}
+	const removeListItem = (ticker) => {
+		dispatch(deleteTicker(ticker))
+	}
+	const handleSwitch = (checked, ticker) => {
+		if (!checked) {
+			dispatch(stopUpdateTicker(ticker))
+		} else {
+			dispatch(startUpdateTicker(ticker))
+		}
 	}
 
 	useEffect(() => {
@@ -56,9 +72,16 @@ const TickersList = () => {
 						<TickerListItem
 							tickerData={tickerData.ticker}
 							key={tickerData.ticker}
+							removeListItem={removeListItem}
+							handleSwitch={handleSwitch}
 						/>
 					) : (
-						<TickerListItem tickerData={tickerData} key={tickerData.ticker} />
+						<TickerListItem
+							tickerData={tickerData}
+							key={tickerData.ticker}
+							removeListItem={removeListItem}
+							handleSwitch={handleSwitch}
+						/>
 					)
 				})}
 			</List>
