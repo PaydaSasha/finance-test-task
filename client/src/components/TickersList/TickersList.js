@@ -17,7 +17,7 @@ const TickersList = () => {
 	const { tickers, filteredTickersArray, stopUpdateTickersArray } = useSelector(
 		(state) => state.tickerList
 	)
-	const emptyTickersArray = filteredTickersArray.length !== tickers.length
+	const notEmptyTickersArray = filteredTickersArray.length !== tickers.length
 
 	const dispatch = useDispatch()
 
@@ -32,7 +32,7 @@ const TickersList = () => {
 
 	return (
 		<>
-			{emptyTickersArray ? (
+			{notEmptyTickersArray ? (
 				<SetIntervalForm socket={socket} />
 			) : (
 				<div className='center-content'>

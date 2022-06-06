@@ -7,7 +7,7 @@ import {
 	DELETE_TICKER,
 	GET_FETCH_INTERVAL,
 } from './actionTypes'
-const initialState = {
+export const initialState = {
 	tickers: [],
 	filteredTickersArray: [],
 	stopUpdateTickersArray: [],
